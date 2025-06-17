@@ -7,17 +7,13 @@ const host = "localhost";
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// Simulando usuários
 const usuarios = [{ login: "admin", senha: "123" }];
 
-// Dados de sessão simples
 const sessoes = {};
 
-// Dados armazenados
 const equipes = [];
 const jogadores = [];
 
-// CSS padrão usado nas páginas (igual do seu código original)
 const style = `
 <style>
   body { font-family: Arial, sans-serif; background: #f2f2f2; margin:0; padding:0; }
@@ -37,7 +33,6 @@ const style = `
 </style>
 `;
 
-// Middleware para verificar autenticação
 function verificarAutenticacao(req, res, next) {
   const sessao = sessoes[req.cookies.sessionid];
   if (sessao && sessao.login) {
@@ -47,7 +42,6 @@ function verificarAutenticacao(req, res, next) {
   res.redirect("/");
 }
 
-// Rota login GET
 app.get("/", (req, res) => {
   res.send(`<!DOCTYPE html>
 <html lang="pt-br">
@@ -71,7 +65,6 @@ ${style}
 </html>`);
 });
 
-// POST login
 app.post("/login", (req, res) => {
   const { login, senha } = req.body;
   const user = usuarios.find(u => u.login === login && u.senha === senha);
@@ -92,7 +85,6 @@ ${style}
 </body>
 </html>`);
   }
-  // Criar sessão simples
   const sessionid = Math.random().toString(36).slice(2);
   sessoes[sessionid] = { login };
   res.cookie("sessionid", sessionid, { httpOnly: true });
@@ -100,7 +92,6 @@ ${style}
   res.redirect("/menu");
 });
 
-// Rota menu
 app.get("/menu", verificarAutenticacao, (req, res) => {
   res.send(`<!DOCTYPE html>
 <html lang="pt-br">
@@ -124,7 +115,6 @@ ${style}
 </html>`);
 });
 
-// Logout
 app.get("/logout", verificarAutenticacao, (req, res) => {
   delete sessoes[req.cookies.sessionid];
   res.clearCookie("sessionid");
@@ -280,11 +270,9 @@ app.post("/jogador", verificarAutenticacao, (req, res) => {
     if (!dados[campo]) erro = true;
   }
 
-  // Validação extra: número e altura devem ser numéricos
   if (dados.numeroJogador && isNaN(parseInt(dados.numeroJogador))) erro = true;
   if (dados.altura && isNaN(parseInt(dados.altura))) erro = true;
 
-  // Validar se equipe escolhida existe
   if (dados.equipe && !equipes.find(e => e.nomeEquipe === dados.equipe)) erro = true;
 
   if (erro) {
