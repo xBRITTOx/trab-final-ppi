@@ -1,0 +1,24 @@
+{
+  "name": "trab-final-ppi",
+  "version": "1.0.0",
+  "description": "trabalho final",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xBRITTOx/trab-final-ppi.git"
+  },
+  "author": "Cristiano Ferreira da Silva Brito",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xBRITTOx/trab-final-ppi/issues"
+  },
+  "homepage": "https://github.com/xBRITTOx/trab-final-ppi#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
